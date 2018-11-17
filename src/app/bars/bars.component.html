@@ -1,0 +1,74 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> Top 10 Spenders!</h1>
+    <p class="lead"> This page can be used to see the top 10 spenders per bar.</p>
+    <p-dropdown *ngIf="barOptions" [ngClass]="{ 'no-option-selected': selectedBar === undefined || selectedBar === null }"
+      placeholder="Filter by Bar" [options]="barOptions" [(ngModel)]="selectedBar" showClear="true" filter=true
+      (onChange)="filterBars($event.value)"></p-dropdown>
+  </div>
+</div>
+<div class ="container">
+  <br>
+  <div id="bargraph">
+    
+  </div>
+</div>
+<br><br>
+
+<div class="container">
+  <h2 class="text-center font-weight-light">{{ selectedBar }}</h2>
+  <p-table [value]="barList" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Patron</th>
+        <th>Amount Spent</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bar>
+      <tr>
+        <td><a routerLink="/drinker/{{ bar.Patron }}">{{ bar.Patron }}</a></td>
+        <td>{{bar.sum_total | currency}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br><br><br><br>
+</div>
+
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> Check on your favorite bars!</h1>
+    <p class="lead">This can be used to see the top 10 beer brands during the weekend or weekday.</p>
+    <p-dropdown *ngIf="barOptions" [ngClass]="{ 'no-option-selected': selectedBar2 === undefined || selectedBar === null }"
+      placeholder="Filter by Bar" [options]="barOptions" [(ngModel)]="selectedBar2" showClear="true" filter=true
+      (onChange)="filterBarsBar($event.value)"></p-dropdown>
+      <p-dropdown *ngIf="dayOptions" [ngClass]="{ 'no-option-selected': selectedDay === undefined || selectedBar === null }"
+      placeholder="Filter by day" [options]="dayOptions" [(ngModel)]="selectedDay" showClear="true"
+      (onChange)="filterBarsWeek($event.value)"></p-dropdown>
+  </div>
+</div>
+<div class ="container">
+  <br>
+  <div id="bargraph1">
+    
+  </div>
+</div>
+<br><br>
+<div class="container">
+  <h2 class="text-center font-weight-light">Sorted by : {{ selectedBar2 }}</h2>
+  <p-table [value]="barDrinkerList" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Beer</th>
+        <th>Amount Bought</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bar>
+      <tr>
+        <td><a routerLink="/beers/{{ bar.beer }}">{{ bar.beer }}</a></td>
+        <td>{{bar.beer_count}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br><br><br><br>
+</div>

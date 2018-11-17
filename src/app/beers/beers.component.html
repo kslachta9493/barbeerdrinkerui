@@ -1,0 +1,84 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> Find your favorite beers!</h1>
+    <p class="lead"> This page can be used to see all the beers in our system or just the ones by your preferred
+      manufacturer.</p>
+    <p-dropdown *ngIf="manufacturerOptions" [ngClass]="{ 'no-option-selected': selectedManufacturer === undefined || selectedManufacturer === null }"
+      placeholder="Filter by Manufacturer" [options]="manufacturerOptions" [(ngModel)]="selectedManufacturer" showClear="true" filter=true
+      (onChange)="filterBeers($event.value)"></p-dropdown>
+  </div>
+</div>
+<div class="container">
+  <h2 class="text-center font-weight-light">Beer</h2>
+  <p-table [value]="beers" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Manufacturer</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-beer>
+      <tr>
+        <td><a routerLink="/beers/{{ beer.name }}">{{ beer.name }}</a></td>
+        <td><a routerLink="/manf/{{ beer.manf }}"> {{beer.manf}}</a></td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br><br><br><br>
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Find where you favorite beer is sold the most!</h1>
+    <p class="lead"> Simply select the beer you wish to filter by in the drop down.</p>
+    <p-dropdown *ngIf="beerOptions" [ngClass]="{ 'no-option-selected': selectedBeer === undefined || selectedBeer === null }"
+      placeholder = "Filter by Beer" [options]="beerOptions" [(ngModel)]="selectedBeer" showClear="true" filter=true
+      (onChange)="filterBeerAnalytics($event.value)"></p-dropdown>
+  </div>
+</div>
+<div class="container">
+  <h2 class="text-center font-weight-light">Top 10 Locations {{ selectedBeer }} is sold at!</h2>
+  <p-table [value]="menuList" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Bar</th>
+        <th>Bought by (#)</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-beer>
+      <tr>
+        <td><a routerLink="/bars/{{ beer.bar }}"> {{ beer.bar }}</a></td>
+        <td> {{beer.like_count}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br><br><br><br>
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Drinker Analytics</h1>
+    <p class="lead">Filter by beer to see who buys it the most.</p>
+    <p-dropdown *ngIf="beerOptions" [ngClass]="{ 'no-option-selected': selectedBeerDrinker === undefined || selectedBeer === null }"
+      placeholder = "Filter by Beer" [options]="beerOptions" [(ngModel)]="selectedBeerDrinker" showClear="true" filter = true
+      (onChange)="filterDrinkerAnalytics($event.value)"></p-dropdown>
+  </div>
+</div>
+<div class="container">
+  <h2 class="text-center font-weight-light">Top 10 Drinkers of {{ selectedBeerDrinker }} are!</h2>
+  <p-table [value]="drinkerList" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Drinker</th>
+        <th>Times Bought (#)</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-drinker>
+      <tr>
+        <td><a routerLink="/drinker/{{ drinker.Patron }}"> {{ drinker.Patron }}</a></td>
+        <td> {{drinker.like_count}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br><br><br><br>
+</div>

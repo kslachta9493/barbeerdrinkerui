@@ -1,0 +1,78 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> All Transactions for a Drinker</h1>
+    <p class="lead"> This page can be used to see all the transactions for a single drinker.</p>
+    <p-dropdown *ngIf="drinkerOptions" [ngClass]="{ 'no-option-selected': selectedDrinker === undefined || selectedDrinker === null }"
+      placeholder="Filter by Drinker" [options]="drinkerOptions" [(ngModel)]="selectedDrinker" showClear="true" filter=true
+      (onChange)="filterDrinker($event.value)"></p-dropdown>
+  </div>
+</div>
+<br><br>
+<div class="container">
+  <h2 class="text-center font-weight-light">{{ selectedDrinker }}</h2>
+  <p-table [value]="drinkerTrans" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>TransID</th>
+        <th>Bar</th>
+        <th>Food</th>
+        <th>Beer</th>
+        <th>Tip</th>
+        <th>Total</th>
+        <th>Time</th>
+        <th>Patron</th>
+        <th>Date</th>
+        <th>Weekend</th>
+        <th>Time2</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bar>
+      <tr>
+        <td>{{ bar.TransID }}</td>
+        <td>{{bar.Bar}}</td>
+        <td>{{ bar.Food}}</td>
+        <td>{{bar.Beer}}</td>
+        <td>{{ bar.Tip | currency }}</td>
+        <td>{{bar.Total | currency}}</td>
+        <td>{{ bar.Time }}</td>
+        <td>{{bar.Patron}}</td>
+        <td>{{bar.Month}}-{{ bar.Day }}</td>
+        <td>{{bar.Weekend}}</td>
+        <td>{{ bar.HTime }}:{{bar.MTime}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br><br><br><br>
+</div>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> Bargraph of Top 10 Beers : {{ selectedDrinkerBeerMost }}</h1>
+    <p class="lead"> This page can be used to see all the transactions for a single drinker.</p>
+    <p-dropdown *ngIf="drinkerOptions" [ngClass]="{ 'no-option-selected': selectedDrinkerBeerMost === undefined || selectedDrinkerBeerMost === null }"
+      placeholder="Filter by Drinker" [options]="drinkerOptions" [(ngModel)]="selectedDrinkerBeerMost" showClear="true" filter=true
+      (onChange)="filterDrinkerBeerMost($event.value)"></p-dropdown>
+  </div>
+</div>
+<div class ="container">
+  <br>
+  <div id="bargraphDrinkerBeerMost">
+    
+  </div>
+</div>
+<br><br>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> Bargraph of spending per bar : {{ selectedDrinkerBarMost }}</h1>
+    <p class="lead"> This page can be used to see all the transactions for a single drinker.</p>
+    <p-dropdown *ngIf="drinkerOptions" [ngClass]="{ 'no-option-selected': selectedDrinkerBarMost === undefined || selectedDrinkerBarMost === null }"
+      placeholder="Filter by Drinker" [options]="drinkerOptions" [(ngModel)]="selectedDrinkerBarMost" showClear="true" filter=true
+      (onChange)="filterDrinkerBarMost($event.value)"></p-dropdown>
+  </div>
+</div>
+<div class ="container">
+  <br>
+  <div id="bargraphDrinkerBarMost">
+    
+  </div>
+</div>
+<br><br>

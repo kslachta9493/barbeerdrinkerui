@@ -1,0 +1,131 @@
+<br><br><br><br>
+<div class="container">
+
+<p-panel header="Bartender cannot work more than once a day assertation confirmation">
+  QUERY: 
+  <br>
+  SELECT b.bartender, a.bartender, a.daynumber, b.daynumber 
+  <br>
+  FROM Bartenderskevin as b, Bartenderskevin as a
+  <br>
+  WHERE a.bartender = b.bartender
+  <br>
+  AND a.shiftstart != b.shiftstart
+  <br>
+  AND a.daynumber = b.daynumber
+</p-panel>
+<br>
+<p-messages [(value)]="msgs"></p-messages>
+<br>
+<p-button label="Verify" (onClick)="testQueryBartender($event)"></p-button>
+
+</div>
+<br><br>
+<div class="container">
+
+<p-panel header="Transactions cannot be issued when the bar is closed">
+  QUERY: 
+  select b.name
+  <br>
+  from Transactions as t, barsN as b
+  <br>
+  where b.WeekendOpen > t.HTime
+  <br>
+  or t.HTime > b.WeekendClose
+  <br>
+  union
+  <br>
+  select b.name from Transactions as t, barsN as b
+  <br>
+  where  b.WeekOpen  > t.HTime
+  <br>
+  or t.HTime > b.WeekClose
+</p-panel>
+<br>
+<p-messages [(value)]="msgs1"></p-messages>
+<br>
+<p-button label="Verify" (onClick)="testQueryTrans($event)"></p-button>
+
+</div>
+<br><br>
+<div class="container">
+
+<p-panel header="Drinkers cannot frequent bars in different states than they live">
+  QUERY: 
+  <br>
+  SELECT distinct d.Name 
+  <br>
+  from Frequents as f, barsN as b, Drinkers as d
+  <br>
+  where f.Drinker = d.Name
+  <br>
+  and f.bar = b.Name
+  <br>
+  and d.State != b.state
+  <br>
+</p-panel>
+<br>
+<p-messages [(value)]="msgs2"></p-messages>
+<br>
+<p-button label="Verify" (onClick)="testQueryDrinkers($event)"></p-button>
+
+</div>
+<br><br>
+<div class="container">
+
+<p-panel header="For every 2 beers....have the same price as bud in another">
+  QUERY: 
+  <br>
+  select s.*
+    from sells3 s, 
+    <br>
+    (select sells3.bar, max(price) maxPrice, sells3.beer
+    from sells3
+    group by beer) as b
+    <br>
+    where b.maxPrice > price
+    <br>
+    and s.beer = b.beer
+    <br>
+    and s.beer is not null
+    
+</p-panel>
+<br>
+<p-messages [(value)]="msgs3"></p-messages>
+<br>
+<p-button label="Verify" (onClick)="testQueryTwoBeers($event)"></p-button>
+
+</div>
+<br><br>
+<div class="container">
+
+<p-panel header="Bar cannot sell more beers of specific brand that it has in it's inventory">
+  QUERY: 
+  <br>
+  SELECT b.bartender, a.bartender, a.daynumber, b.daynumber 
+  <br>
+  FROM Bartenderskevin as b, Bartenderskevin as a
+  <br>
+  WHERE a.bartender = b.bartender
+  <br>
+  AND a.shiftstart != b.shiftstart
+  <br>
+  AND a.daynumber = b.daynumber
+  select sum(s.InventoryMonday) as a, sum(s.InventoryTuesday) as b,sum(s.InventoryWednesday) as c 
+  <br>
+  ,sum(s.InventoryThursday) as d,sum(s.InventoryFriday) as e,sum(s.InventorySaturday) as f,
+  <br>
+  sum(s.InventorySunday) as g, sum(t.beer) as total
+  <br>
+  from Sells4 as s, Transactions as t
+  <br>
+  group by daynumber
+  <br>
+                having total > a or total > b or total > c or total > d or total > e or total > f or total > a
+</p-panel>
+<br>
+<p-messages [(value)]="msgs4"></p-messages>
+<br>
+<p-button label="Verify" (onClick)="testQueryBeer($event)"></p-button>
+
+</div>

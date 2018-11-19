@@ -12,8 +12,11 @@ export class DrinkerComponent implements OnInit {
   drinkerTrans: string[];
   drinkersList: any[];
   drinkerOptions: SelectItem[];
+  filterOptions: SelectItem[];
   drinkerBeerMost: string[];
   drinkerBarMost: string[];
+  drinkerMonth: string;
+  drinkerName: string;
   constructor(private drinkerService: DrinkerService) { 
         this.drinkerService.getAllDrinkers().subscribe(
           data => {
@@ -26,6 +29,56 @@ export class DrinkerComponent implements OnInit {
             })
           }
         )
+        this.filterOptions = [
+          {
+            label: 'January',
+            value: '1'
+          },
+          {
+            label: 'Febuary',
+            value: '2'
+          },
+          {
+            label: 'March',
+            value: '3'
+          },
+          {
+            label: 'April',
+            value: '4'
+          },
+          {
+            label: 'May',
+            value: '5'
+          },
+          {
+            label: 'June',
+            value: '6'
+          },
+          {
+            label: 'July',
+            value: '7'
+          },
+          {
+            label: 'August',
+            value: '8'
+          },
+          {
+            label: 'September',
+            value: '9'
+          },
+          {
+            label: 'October',
+            value: '10'
+          },
+          {
+            label: 'November',
+            value: '11'
+          },
+          {
+            label: 'December',
+            value: '12'
+          }
+        ]
   }
 
   ngOnInit() {
@@ -66,6 +119,81 @@ export class DrinkerComponent implements OnInit {
         this.renderChart(bars,counts)
       }
     )  
+  }
+  filterDrinkerPerBarDrinker(name: string) {
+    if(this.drinkerMonth) {
+      this.drinkerService.getDrinkerBarTotal(name, this.drinkerMonth).subscribe(
+        data => {
+          const bars = [];
+          const counts = [];
+          data.forEach(bar => {
+            bars.push(bar.bar)
+            counts.push(bar.total)
+          })
+  
+          this.buildChart(bars,counts)
+        }
+      )
+    }
+    this.drinkerName = name;
+  }
+  filterDrinkerPerBarMonth(month: string) {
+    if(this.drinkerName) {
+      this.drinkerService.getDrinkerBarTotal(this.drinkerName, month).subscribe(
+        data => {
+          const bars = [];
+          const counts = [];
+          data.forEach(bar => {
+            bars.push(bar.bar)
+            counts.push(bar.total)
+          })
+  
+          this.buildChart(bars,counts)
+        }
+      )
+    }  
+    this.drinkerMonth = month;  
+  }
+  buildChart(beers: string[], counts: number[]) {
+    Highcharts.chart('bargraphDrinkerAll', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Bars Vs Amount spent for a single patron'
+      },
+      xAxis: {
+        categories: beers,
+        title: {
+          text: 'Bars'
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Amount Spent'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        data: counts
+      }]
+    })
   }
   makeChart(beers: string[], counts: number[]) {
     Highcharts.chart('bargraphDrinkerBeerMost', {

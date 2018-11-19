@@ -4,6 +4,7 @@ import { HttpClientModule, HttpClient} from '@angular/common/http';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { TableModule } from 'primeng/table';
 import { DropdownModule} from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -19,6 +20,11 @@ import { DrinkerComponent } from './drinker/drinker.component';
 import { ManufacturerComponent } from './manufacturer/manufacturer.component';
 import { BartenderComponent } from './bartender/bartender.component';
 import { SqlComponent } from './sql/sql.component';
+import { VerifyComponent } from './verify/verify.component';
+import { PanelModule } from 'primeng/panel'
+import {MessagesModule} from 'primeng/messages'
+
+
 
 
 @NgModule({
@@ -36,7 +42,8 @@ import { SqlComponent } from './sql/sql.component';
     DrinkerComponent,
     ManufacturerComponent,
     BartenderComponent,
-    SqlComponent
+    SqlComponent,
+    VerifyComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +52,9 @@ import { SqlComponent } from './sql/sql.component';
     TableModule,
     FormsModule,
     DropdownModule,
+    ButtonModule,
+    PanelModule,
+    MessagesModule,
     AppRoutingModule
   ],
   providers: [HttpClient],

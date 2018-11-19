@@ -14,6 +14,7 @@ export class BarsComponent implements OnInit {
   barDrinkerList: string[];
   barOptions: SelectItem[];
   dayOptions: SelectItem[];
+  barInv: any[];
   barTemp: string;
   weekTemp: string;
   constructor( private barService: BarsService) { 
@@ -41,6 +42,89 @@ export class BarsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  filterBarDay(bar: string) {
+    this.barService.getBarDay(bar).subscribe(
+      data => {
+        const beers = [];
+        const counts = [];
+        const inventory = [];
+        counts.push('Monday');
+        counts.push('Tuesday');
+        counts.push('Wednesday');
+        counts.push('Thursday');
+        counts.push('Friday');
+        counts.push('Saturday');
+        counts.push('Sunday');
+        data.forEach(beer => {
+          beers.push(beer.sold_total)
+        })
+        this.barService.getBarInventory(bar).subscribe(
+          data => {
+            this.barInv = data;
+            data.forEach(total => {
+              inventory.push(total.a)
+              inventory.push(total.b)
+              inventory.push(total.c)
+              inventory.push(total.d)
+              inventory.push(total.e)
+              inventory.push(total.f)
+              inventory.push(total.g)
+            })
+            this.doChart(counts, beers, inventory)
+          }
+        )
+
+      }
+    )
+
+
+  }
+
+  doChart(beers: string[], counts:number[], inventory:number[]) {
+    Highcharts.chart('bargraphDay', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Sales per day distribution'
+      },
+      xAxis: {
+        categories: beers,
+        title: {
+          text: 'Days'
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Amount Sold'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        data: counts,
+        label: "Amount Sold"
+      }, {
+        data: inventory,
+        label: "Inventory"
+      }]
+    })
   }
   filterBars(bar: string) {
     if (bar) {

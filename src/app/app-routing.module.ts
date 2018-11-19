@@ -12,6 +12,7 @@ import { DrinkerComponent } from './drinker/drinker.component';
 import { ManufacturerComponent } from './manufacturer/manufacturer.component';
 import { BartenderComponent } from './bartender/bartender.component';
 import { SqlComponent } from './sql/sql.component';
+import { VerifyComponent } from './verify/verify.component';
 
 const routes: Routes = [
   {
@@ -83,6 +84,11 @@ const routes: Routes = [
     path: 'sql',
     pathMatch: 'full',
     component: SqlComponent
+  },
+  {
+    path: 'verify',
+    pathMatch: 'full', 
+    component: VerifyComponent
   }
 ];
 

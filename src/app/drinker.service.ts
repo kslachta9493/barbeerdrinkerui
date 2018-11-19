@@ -31,4 +31,8 @@ export class DrinkerService {
   getDrinkerBarMost(name) {
     return this.http.get<any[]>(`/api/drinker-bar-most/${name}`)
   }
+
+  getDrinkerBarTotal(name, month) {
+    return this.http.get<any[]>(`/api/drinker-all-bars/${name}&${month}`)
+  }
 }

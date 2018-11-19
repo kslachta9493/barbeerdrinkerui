@@ -72,3 +72,19 @@
   </p-table>
   <br><br><br><br>
 </div>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> Select A Bar</h1>
+    <p class="lead"> This can be used to see the sales per day versus their inventory: {{ selectedBar3 }}</p>
+    <p-dropdown *ngIf="barOptions" [ngClass]="{ 'no-option-selected': selectedBar3 === undefined || selectedBar3 === null }"
+      placeholder="Filter by Manufacturer" [options]="barOptions" [(ngModel)]="selectedBar3" showClear="true" filter=true
+      (onChange)="filterBarDay($event.value)"></p-dropdown>
+  </div>
+</div>
+<div class ="container">
+  <br>
+  <div id="bargraphDay">
+    
+  </div>
+</div>
+<br><br>

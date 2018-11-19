@@ -47,4 +47,13 @@ export class BarsService {
   getFrequentCounts() {
     return this.http.get<any[]>('/api/frequents-data')
   }
+  getBarDay(bar: string) {
+    return this.http.get<any[]>(`/api/bar-time-day/${bar}`)
+  }
+  getBarHour(bar: string) {
+    return this.http.get<any[]>(`/api/bar-time-hour/${bar}`)
+  }
+  getBarInventory(bar: string) {
+    return this.http.get<any[]>(`/api/bar-inventory/${bar}`)
+  }
 }

@@ -47,7 +47,7 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4"> Bargraph of Top 10 Beers : {{ selectedDrinkerBeerMost }}</h1>
-    <p class="lead"> This page can be used to see all the transactions for a single drinker.</p>
+    <p class="lead"> This page can be used to see all the top 10 beers for a single drinker.</p>
     <p-dropdown *ngIf="drinkerOptions" [ngClass]="{ 'no-option-selected': selectedDrinkerBeerMost === undefined || selectedDrinkerBeerMost === null }"
       placeholder="Filter by Drinker" [options]="drinkerOptions" [(ngModel)]="selectedDrinkerBeerMost" showClear="true" filter=true
       (onChange)="filterDrinkerBeerMost($event.value)"></p-dropdown>
@@ -63,7 +63,7 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4"> Bargraph of spending per bar : {{ selectedDrinkerBarMost }}</h1>
-    <p class="lead"> This page can be used to see all the transactions for a single drinker.</p>
+    <p class="lead"> This page can be used to see amount spent per bar a single drinker over the entire period.</p>
     <p-dropdown *ngIf="drinkerOptions" [ngClass]="{ 'no-option-selected': selectedDrinkerBarMost === undefined || selectedDrinkerBarMost === null }"
       placeholder="Filter by Drinker" [options]="drinkerOptions" [(ngModel)]="selectedDrinkerBarMost" showClear="true" filter=true
       (onChange)="filterDrinkerBarMost($event.value)"></p-dropdown>
@@ -72,6 +72,25 @@
 <div class ="container">
   <br>
   <div id="bargraphDrinkerBarMost">
+    
+  </div>
+</div>
+<br><br>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> Bargraph of spending per bars : {{ selectedDrinkerBarMost }}</h1>
+    <p class="lead"> Amount Spent per bar for {{selectedDrinkerAll}}.</p>
+    <p-dropdown *ngIf="drinkerOptions" [ngClass]="{ 'no-option-selected': selectedDrinkerAll === undefined || selectedDrinkerAll === null }"
+      placeholder="Filter by Drinker" [options]="drinkerOptions" [(ngModel)]="selectedDrinkerAll" showClear="true" filter=true
+      (onChange)="filterDrinkerPerBarDrinker($event.value)"></p-dropdown>
+    <p-dropdown *ngIf="filterOptions" [ngClass]="{ 'no-option-selected': selectedDrinkerAll1 === undefined || selectedDrinkerAll1 === null }"
+      placeholder="Filter by Drinker" [options]="filterOptions" [(ngModel)]="selectedDrinkerAll1" showClear="true" filter=true
+      (onChange)="filterDrinkerPerBarMonth($event.value)"></p-dropdown>
+  </div>
+</div>
+<div class ="container">
+  <br>
+  <div id="bargraphDrinkerAll">
     
   </div>
 </div>
